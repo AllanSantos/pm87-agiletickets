@@ -10,8 +10,19 @@ public class CalculadoraDePrecos {
 	public static BigDecimal calcula(Sessao sessao, Integer quantidade) {
 		BigDecimal preco;
 
-		if (sessao.getEspetaculo().getTipo().equals(TipoDeEspetaculo.CINEMA)
-				|| sessao.getEspetaculo().getTipo().equals(TipoDeEspetaculo.SHOW)) {
+			
+		preco = calculaPrecoPorLotacao(sessao);
+
+		
+
+		return preco.multiply(BigDecimal.valueOf(quantidade));
+	}
+
+	private static BigDecimal calculaPrecoPorLotacao(Sessao sessao) {
+		BigDecimal preco;
+		
+		if (getTipoDeEspetaculo(sessao).equals(TipoDeEspetaculo.CINEMA)
+				|| getTipoDeEspetaculo(sessao).equals(TipoDeEspetaculo.SHOW)) {
 			
 			if (calculaPercentualDeLotacao(sessao) <= 0.05) {
 				preco = sessao.getPreco().add(sessao.getPreco().multiply(BigDecimal.valueOf(0.10)));
@@ -19,8 +30,9 @@ public class CalculadoraDePrecos {
 				preco = sessao.getPreco();
 			}
 
-		} else if (sessao.getEspetaculo().getTipo().equals(TipoDeEspetaculo.BALLET)
-				|| sessao.getEspetaculo().getTipo().equals(TipoDeEspetaculo.ORQUESTRA)) {
+		} else if (getTipoDeEspetaculo(sessao).equals(TipoDeEspetaculo.BALLET)
+				|| getTipoDeEspetaculo(sessao).equals(TipoDeEspetaculo.ORQUESTRA)) {
+			
 			if (calculaPercentualDeLotacao(sessao) <= 0.50) {
 				preco = sessao.getPreco().add(sessao.getPreco().multiply(BigDecimal.valueOf(0.20)));
 			} else {
@@ -37,7 +49,11 @@ public class CalculadoraDePrecos {
 			preco = sessao.getPreco();
 		}
 
-		return preco.multiply(BigDecimal.valueOf(quantidade));
+		return preco;
+	}
+
+	private static TipoDeEspetaculo getTipoDeEspetaculo(Sessao sessao) {
+		return sessao.getEspetaculo().getTipo();
 	}
 
 	private static double calculaPercentualDeLotacao(Sessao sessao) {
