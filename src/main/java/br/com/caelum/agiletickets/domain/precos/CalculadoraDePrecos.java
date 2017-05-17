@@ -62,6 +62,9 @@ public class CalculadoraDePrecos {
 		} else {
 			preco = sessao.getPreco();
 		}
+		
+		
+		
 		return preco;
 	}
 	
