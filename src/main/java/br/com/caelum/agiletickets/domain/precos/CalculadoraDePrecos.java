@@ -13,17 +13,11 @@ public class CalculadoraDePrecos {
 	public static BigDecimal calcula(Sessao sessao, Integer quantidade) {
 		BigDecimal preco;
 
-			
 		preco = calculaPrecoPorLotacao(sessao);
-
-		
 
 		return preco.multiply(BigDecimal.valueOf(quantidade));
 	}
 	
-	
-	
-
 	private static BigDecimal calculaPrecoPorLotacao(Sessao sessao) {
 		BigDecimal preco;
 		
@@ -54,18 +48,12 @@ public class CalculadoraDePrecos {
 		return preco;
 	}
 
-
-
-
 	private static BigDecimal getEspetaculoMaiorQueUmaHora(Sessao sessao, BigDecimal preco) {
 		if (sessao.getDuracaoEmMinutos() > 60) {
 			preco = preco.add(sessao.getPreco().multiply(BigDecimal.valueOf(0.10)));
 		}
 		return preco;
 	}
-
-
-
 
 	private static BigDecimal getCalculaPrecoTaxado(Sessao sessao) {
 		BigDecimal preco;
@@ -77,9 +65,6 @@ public class CalculadoraDePrecos {
 		return preco;
 	}
 	
-	
-	
-
 	private static TipoDeEspetaculo getTipoDeEspetaculo(Sessao sessao) {
 		return sessao.getEspetaculo().getTipo();
 	}
